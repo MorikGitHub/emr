@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="renderer" content="webkit" />
+<title></title>
+<link rel="stylesheet" href="../zui/zui-1.3.1/css/zui.css" />
+<link rel="stylesheet" href="zgrid.css" />
+<script type="text/javascript"
+	src="../zui/zui-1.3.1/lib/jquery/jquery.js"></script>
+<script type="text/javascript" src="../zui/zui-1.3.1/js/zui.js"></script>
+<script type="text/javascript" src="zgrid.js"></script>
+<!--[if lt IE 9]>
+		  <script src="../zui/zui-1.3.1/lib/ieonly/html5shiv.js"></script>
+		<![endif]-->
+<!--[if lt IE 9]>
+		  <script src="../zui/zui-1.3.1/lib/ieonly/respond.js"></script>
+		<![endif]-->
+<style>
+	.zgrid .demo-color{
+		color:green;
+	}
+</style>
+<script type="text/javascript">
+			$(document).ready(function(){
+				
+				var zgrid=$("#myZgrid2").zgrid({
+					url:'demodata1.json',//请求url
+					async:true, //异步/同步
+					requestParam:null,//请求参数
+					pageable : true,//使用分页
+					frontPage:false,//允许前台分页，未开放
+					pageNavNum:10,//分页数字导航索引个数
+					pageNo:1,//当前页码
+					pageSize:20,//页面数据量
+					rowNumber : true,	//显示行号,默认显示
+					rowNumberWidth:'10%',//默认auto
+					linefeed:false,	//是否换行
+					needTitle:true,	//内容添加title属性
+					//caption:'Demo测试',	//表格上方title
+					width:'80%',
+					min_height:'200px',//数据展示部分最低高度
+					needBorder:true,//控件外层带边框
+					textAlign:'right',//文字居中
+					theam:null,//主题样式,自定义的,添加上class的名称,class位于表格控件顶级div中
+					
+					checkable: true,	//允许多选
+					checkByClickRow : true, // 是否在点击行时就选中
+					sortable:false,	//允许排序,与上下行合并互斥
+					mergeRows:true,	//允许上下行合并,与排序互斥
+					fixedHeader : true,	//允许表头浮动
+					fixedHeaderOffset : 20, // 浮动表头距顶部的偏移量，样式容易出问题，慎用
+					fixedLeftWidth : '45%', // 浮动表格左边的偏移量，样式容易出问题，慎用
+					fixedRightWidth : '45%', // 浮动表格右边边的偏移量，样式容易出问题，慎用
+					flexHeadDrag : true, // 允许拖拽表头实现滚动效果
+					scrollPos : 'out', // 滚动条 内置/外置 'in'/'out'
+					
+					//以下为新增配置项 和 有变化的配置项目
+					caption : 'Zgrid 测试',     // 标题，推荐只写字符串，
+				    captionIcon: 'icon-table', // 标题栏图标
+				    //captionHtml : '',          // 标题栏 Html 当配置该属性后   caption,captionIcon 无效
+					searchBox : '#searchBox',     // 搜索栏目，样式自定义，可以参考页面底部  searchBox
+					// backSort:{
+					// "XH":{
+					// url: String / Function //响应的url
+					// cur:"0" //当前的激活的排序状态
+					// 0:function(colName){return {}} //默认顺序 参数
+					// 1:function(colName){return {}} //排序状态1 参数
+					// 2:function(colName){return {}} //排序状态2 参数
+					// }
+					// },
+					backSort:{//后台排序，配置后前台sort功能失效
+						"BZXXXH":{
+							"url":"",
+							"cur":0,
+							"0":function(colName){return {}},
+							"1":function(colName){return {}},
+							"2":function(colName){return {}}
+						}
+					},
+					/**
+					* 参考工具栏配置: 
+						{
+							key:null,	//获取按钮的key
+							title:null,	//button的title
+							text:null,	//按钮展示的值
+							disabled:false,		//禁用/启用
+							callback:null	//响应事件
+						}
+					**/
+					toolbar:[//工具栏配置
+						{
+							key:'add',
+							title:'新增',
+							text:'新增',
+							disabled:false,
+							callback:function(){
+								alert('新增');
+							}
+						},{
+							key:'del',
+							title:'删除',
+							text:'删除',
+							disabled:false,
+							callback:function(){
+								alert('删除');
+							}
+						},
+						{
+							key:'edit',
+							title:'编辑',
+							text:'编辑',
+							disabled:false,
+							callback:function(){
+								alert('删除');
+							}
+						},{
+							key:'togglebtn1',
+							title:'禁用新增按钮',
+							text:'禁用新增按钮',
+							disabled:false,
+							callback:function(){
+								zgrid.toggleBtn('add',true);
+							}
+						},{
+							key:'togglebtn2',
+							title:'切换新增按钮状态',
+							text:'切换新增按钮状态',
+							disabled:false,
+							callback:function(){
+								zgrid.toggleBtn('add');
+							}
+						},{
+							key:'getbtn',
+							title:'获取当前按钮的jquery',
+							text:'获取当前按钮的jquery',
+							disabled:false,
+							callback:function(){
+								var $btn=zgrid.getBtn("getbtn");
+								alert("当前按钮的dom id="+$btn.attr("id"));
+							}
+						},{
+							key:'getSel1',
+							title:'获取选中行原始数据只读',
+							text:'获取选中行原始数据只读',
+							disabled:false,
+							callback:function(){
+								var list=zgrid.getSelectedRows(true);
+								alert(JSON.stringify(list));
+							}
+						},{
+							key:'getSel2',
+							title:'获取选中行表格数据只读',
+							text:'获取选中行表格数据只读',
+							disabled:false,
+							callback:function(){
+								var list=zgrid.getSelectedRows(false);
+								alert(JSON.stringify(list));
+							}
+						},{
+							key:'getRow',
+							title:'获取第三行原始数据',
+							text:'获取第三行原始数据',
+							disabled:false,
+							callback:function(){
+								var obj=zgrid.getRow(true,2);
+								alert(JSON.stringify(obj));
+							}
+						},{
+							key:'getRow2',
+							title:'获取第三行表格数据',
+							text:'获取第三行表格数据',
+							disabled:false,
+							callback:function(){
+								var obj=zgrid.getRow(false,2);
+								alert(JSON.stringify(obj));
+							}
+						},{
+							key:'setSel1',
+							title:'选中第二行',
+							text:'选中第二行',
+							disabled:false,
+							callback:function(){
+								zgrid.setSelectedRow(1,true);
+							}
+						},{
+							key:'setSel2',
+							title:'取消选中第三行',
+							text:'取消选中第三行',
+							disabled:false,
+							callback:function(){
+								zgrid.setSelectedRow(2,false);
+							}
+						},{
+							key:'getReq',
+							title:'获取请求参数只读',
+							text:'获取请求参数只读',
+							disabled:false,
+							callback:function(){
+								var params=zgrid.getRequestParam();
+								alert(JSON.stringify(params));
+							}
+						},{
+							key:'getPageNo',
+							title:'获取当前页数',
+							text:'获取当前页数',
+							disabled:false,
+							callback:function(){
+								var pageNo=zgrid.getPageNo();
+								alert(pageNo);
+							}
+						},{
+							key:'setReq',
+							title:'设置请求参数',
+							text:'设置请求参数',
+							disabled:false,
+							callback:function(){
+								var params={"xh":1};
+								zgrid.setRequestParam(params);
+								alert('点击获取按钮查询');
+							}
+						},{
+							key:'setPgNo',
+							title:'设置页码',
+							text:'设置页码',
+							disabled:false,
+							callback:function(){
+								zgrid.setPageNo(2);
+								alert('数据满足多页条件时请尝试重新加载数据');
+							}
+						},{
+							key:'setPgSize',
+							title:'设置每页数据量',
+							text:'设置每页数据量',
+							disabled:false,
+							callback:function(){
+								zgrid.setPageSize(50);
+								alert('数据满足多页条件时请尝试重新加载数据');
+							}
+						},{
+							key:'setPgSize',
+							title:'重新加载',
+							text:'重新加载',
+							disabled:false,
+							callback:function(){
+								zgrid.reload();
+								alert("可选参数：requestParams,pageNo,pageSize");
+							}
+						},{
+							key:'destroy',
+							title:'销毁表格控件',
+							text:'销毁表格控件',
+							disabled:false,
+							callback:function(){
+								zgrid.destroy();
+								alert("对象现有内容："+JSON.stringify(zgrid));
+							}
+						},{
+							key:'toggleAll',
+							title:'切换除此之外所有按钮状态',
+							text:'切换除此之外所有按钮状态',
+							disabled:false,
+							callback:function(){
+								zgrid.toggleBtnAll();
+								zgrid.toggleBtn('toggleAll',true);
+							}
+						}
+		         	],
+					/**
+					* 参考列属性配置: 
+						{// 列属性默认配置
+							name : null, // 字段名
+							text : null, // 字段展示名
+							flex : false, // 可滚动，宽度配置比表格实际能分配的值大时，提供滚动条，相邻flex=true的列自动组合一起
+							width : 'auto',	//宽度，默认均分
+							cssClass : null,//表头样式 class，使用样式表
+							css : null,	//表头样式，直接写入style
+							type : 'string',//数据类型 string/number/date 排序用，data类型支持不好，不推荐
+							ignore : false,//不加载此列
+							sort : false,//允许此列排序
+							mergeRows : false,//允许行合并
+							formatter : null//对传入值的格式化方法
+						},
+					*/
+					cols:[//列配置,每个属性都有对应效果
+						{name:'BZXXXH' , text:'比中信息序号',mergeRows:true,width:'60px'},
+						{name:'CKYHXM' , text:'查控用户姓名',cssClass:'demo-color text-center'},
+						{name:'CZRSFZMHM' , text:'操控责任人身份号',ignore:true},
+						{name:'FSSJ' , text:'发生时间',type:'string',sort:true},
+						{name:'FSD' , text:'发生地',flex:true,width:'150px'},
+						{name:'FSSQ' , text:'发生事情',flex:true,width:'150px'},
+						{name:'RYXM' , text:'人员姓名',mergeRows:true,formatter:function(value){return '<a>'+value+'</a>';}},
+						{name:'RYYWLB' , text:'业务类别',css:'color:red;',cssClass:'text-left'},
+						{name:'RYXM11' , text:'操作',mergeRows:true,formatter:function(value){return '<a>aaa</a>';}}
+			      	],
+			      	callback:{
+						onloadComplete : function(data1){// 数据获取完成时
+							$("#onloadComplete1").val(JSON.stringify(data1[0]));
+						}, 
+						onClickRow : function(data1,data2,rowIndex,checkedStatus,event){// 单击行对象
+							$("#selectedIndex1").html(rowIndex);
+							$("#onClickRow1").val(JSON.stringify(data1));
+							$("#onClickRow2").val(JSON.stringify(data2));
+						}, 
+						onDblclickRow : function(data1,data2,rowIndex,checkedStatus,event){ // 双击行对象
+							$("#selectedIndex2").html(rowIndex);
+							$("#onClickRow1").val(JSON.stringify(data1));
+							$("#onClickRow2").val(JSON.stringify(data2));
+						},
+						onCheckAll : function(data1,data2,status){ // 选中所有行
+							if(status===true)
+								alert('全选中');
+							else if(status===false){
+								alert("全取消");
+							}
+						},
+						onRowOver:function(data1,data2,rowIndex,top,left){
+							var offsetleft=left;
+							var offsetTop=top;
+							var html="<div id='gege' style='color:red;position:fixed;top:"+offsetTop+"px;left:"+offsetleft+"px;'>鼠标在此行</div>";
+							$('body').append(html);
+						},
+						onRowOut:function(){
+							$('#gege').remove();
+						},
+						onTableReady:function(){
+							alert("重新加载完毕");
+						},//表格内容渲染完毕
+						onGenerateComplete : function(zgrid){//控件初始化完毕时
+							//返回的表格对象,在$(dom).zgrid() 返回对象之前返回此对象，处理一些及时任务，请求为异步时效果相对明显
+						} 
+					}
+				});
+			});
+			
+		</script>
+</head>
+<body>
+	<!--[if lt IE 8]>
+        	<div class="alert alert-danger">您正在使用 <strong>过时的</strong> 浏览器. 是时候 <a href="http://browsehappy.com/">更换一个更好的浏览器</a> 来提升用户体验.</div>
+    	<![endif]-->
+	<div class="with-padding">
+		<div id="myZgrid2"></div>
+		<span>原始数据第一列:</span><textArea id="onloadComplete1"  class='form-control' rows="10"></textArea>
+		<span>当前选中原始数据，单击时选中行号为</span><span id="selectedIndex1"></span><textArea id="onClickRow1"  class='form-control' rows="10"></textArea>
+		<span>当前选中表格数据，双击时选中行号为</span><span id="selectedIndex2"></span><textArea id="onClickRow2"  class='form-control' rows="10"></textArea>
+		<span>全选原始数据:</span><textArea id="onCheckAll1"  class='form-control' rows="10"></textArea>
+		<span>全选表格数据:</span><textArea id="onCheckAll2"  class='form-control' rows="10"></textArea>
+		<span>当前划过原始数据:</span><textArea id="onRowOver1"  class='form-control' rows="10"></textArea>
+		<span>当前划过表格数据:</span><textArea id="onRowOver2"  class='form-control' rows="10"></textArea>
+	</div>
+	
+	<!-- 查询框样式 -->
+	<div id="searchBox">
+		<table style="">
+			<tr>
+				<td>&nbsp;布控级别：</td>
+				<td class="tdStyle">
+					<select name="rybkjb" id="rybkjb" class="select-3 form-control chosen">
+						<option value=""> </option>
+								<option value="1">一级</option>
+								<option value="2">二级</option>
+								<option value="3">三级</option>
+								<option value="L">L级</option>
+								<option value="4">四级</option>
+					</select>
+				</td>
+				<td>&nbsp;人员姓名：</td>
+				<td class="tdStyle"><input type="text" name="ryxm" id="ryxm" class="form-control"/></td>
+				<td>&nbsp;证件号码：</td>
+				<td class="tdStyle"><input type="text" name="ryzjhm" id="ryzjhm" class="form-control"/>
+				</td>
+				<td align="right">
+					<button id="chaxun" class="btn" onclick="alert(1);"><i class="icon-search"></i> 查询</button>
+					<button id="gj" class="btn " onclick="displayGJ();"><i class="icon-chevron-down"></i> 更多</button> 
+					<button id="shouqi" class="btn hide" onclick="shouqiGJ();"><i class="icon-chevron-up"></i> 收起</button>
+				</td>
+			</tr>
+			<tr id="row2" class="hide">
+				<td>&nbsp;民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
+				<td>
+					<select name="rymz" id="rymz" class="select-3 form-control chosen">
+						<option value=""></option>
+						<option value="">汉族</option>
+						<option value="">藏族</option>
+						<option value="">回族</option>
+					</select>
+				</td>
+				<td>&nbsp;列控单位：</td>
+				<td>
+					<input type="text" name="rylkdw" id="rylkdw" class="form-control"/>
+				</td>
+				<td>&nbsp;籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯：</td>
+				<td><input type="text" name="ryjg" id="ryjg" class="form-control"/></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+select * from enclosureInfo where cases_id=1

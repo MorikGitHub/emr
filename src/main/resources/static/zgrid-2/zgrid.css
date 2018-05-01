@@ -1,0 +1,188 @@
+.zgrid{
+	margin: 0 auto;
+	width:100%;
+	height:auto;
+	border-radius: 4px 4px 0 0;
+/* 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05); */
+/*     box-shadow: 0 1px 1px rgba(0, 0, 0, .05); */
+    border-radius: 4px 4px 0 0;
+    position:relative;/**提供给wait标签进行绝对位移用**/
+}
+.zgrid-border{
+	/*border-top:#DDDDDD 1px solid;*/
+}
+.zgrid .table-border-bottom{
+	border-bottom:#DDDDDD 1px solid;
+	border-left: #DDDDDD 1px solid;
+	border-right: #DDDDDD 1px solid;
+}
+.zgrid .table-border-bottom>div.datatable{
+	border-left: none;
+	border-right: none;
+}
+
+.zgrid-border .zgrid-heading{
+	border-bottom:#DDDDDD 1px solid;
+	border-left: #DDDDDD 1px solid;
+	border-right: #DDDDDD 1px solid;
+}
+
+.zgrid .zgrid-heading{
+	background-color: rgb(241, 241, 241);
+	padding: 5px 15px;
+	font-weight: bold;
+	font-size: 15px;
+}
+.zgrid-border .zgrid-toolbar{
+	border-left: #DDDDDD 1px solid;
+	border-right: #DDDDDD 1px solid;
+	border-bottom: #DDDDDD 1px solid;
+}
+
+.zgrid .zgrid-toolbar{
+	width: 100%;
+	background-color:#ffffff;
+	padding:5px calc(1% + 1em);
+	padding:5px 2em\9;
+}
+
+.zgrid .zgrid-toolbar button+button{
+	margin-left: calc(2%);
+}
+
+.zgrid-border .zgrid-table>div{
+/* 	border-left: #DDDDDD 1px solid; */
+/* 	border-right: #DDDDDD 1px solid; */
+}
+.zgrid .zgrid-table{
+	/*border: 1px solid #dddddd;*/
+	border-radius: 0px 0px 4px 4px;
+	margin-top: 5px;	
+}
+
+.zgrid .zgrid-table .table{
+	margin: 0;
+}
+.zgrid .wait{
+	background:url(wait.gif) no-repeat scroll 0 0 transparent;
+	background-size:32px 32px;
+	width:32px;
+	height:32px;
+	margin:10% auto;
+}
+.zgrid .backdrop-wait{
+	position:absolute;
+	z-index:999;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+/* 	filter: alpha(opacity=50); */
+/*   	opacity: 0.5; */
+/*   	background-color: #000; */
+}
+
+.zgrid .wait1{
+	background:url(wait2.gif) no-repeat scroll 0 0 transparent;
+/* background-position:45% 55%; */
+	height:45px;
+	width:45px;
+	display:block;
+	margin:auto;
+}
+
+/* .zgrid .zgrid-pager .pull-right>a{ */
+/* 	text-decoration:none; */
+/* 	position:relative; */
+/* 	top:15px; */
+/* 	right:1em; */
+/* } */
+.zgrid .zgrid-pager .pull-right .pagedes a{
+	padding-top:7px;/*取消了border,额外2px*/
+	border:none;
+}
+
+.zgrid .zgrid-pager .pull-right:after{
+	clear:both;
+}
+
+.zgrid .zgrid-pager .pager{
+	margin: 3px auto;
+}
+
+.zgrid th.linefeed-on,.zgrid .linefeed-on td{
+	word-break:break-all;
+}
+.zgrid th.linefeed-off,.zgrid .linefeed-off td{
+	word-break:keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	vertical-align:middle;
+}
+.zgrid .linefeed-off td{
+	text-overflow:ellipsis;
+}
+
+/* add by liangxj*/
+.zgrid .zgrid-header {
+	background-color: #549DE6;
+	padding: 2px 15px 2px 15px;
+	font-weight: bold;
+	font-size: 15px;
+	border: #4A92D9 1px solid;
+	color:#ffffff;
+	border-radius: 4px 4px 0 0;
+}
+
+.zgrid .zgrid-header .zgrid-caption {
+	padding:5px 0px;
+}
+
+.zgrid .zgrid-header .icon {
+	font-size: 15px;
+}
+
+.zgrid .zgrid-header .searchbtn {
+}
+
+.zgrid .zgrid-header .searchbtn:hover {
+	background-color: #dedede;
+}
+.zgrid .searchbox {
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	border-top: none;
+}
+div.zgrid-table table.table tr:last-child td{
+	border-bottom: none;
+}
+
+.zgrid .datatable-head .table th.backsort:after{
+	display: inline-block;
+	margin-left: 5px;
+	font-family: ZenIcon;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	line-height: 1;
+	color: #808080;
+	text-transform: none;
+	
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.zgrid th.backsort-icon-0:after{
+	cusor:default;
+	content: '\e6bd';
+}
+.zgrid th.backsort-icon-1:after{
+	cusor:default;
+  	content: '\e6b8';
+}
+.zgrid th.backsort-icon-2:after{
+	cusor:default;
+  	content: '\e6b9';
+}
